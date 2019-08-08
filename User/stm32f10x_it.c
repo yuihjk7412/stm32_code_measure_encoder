@@ -26,6 +26,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "bsp_GeneralTim.h" 
+#include "bsp_usart.h"
+
+uint16_t USART1_Buffer[1024];
+uint16_t USART1_Buffer_Num = 0;
 
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
@@ -205,6 +209,26 @@ void TIM3_IRQHandler(void)
         ;
     }   
     TIM3->SR&=~(1<<0);//清除中断标志位
+}
+
+void USART1_IRQHandler(void)
+{
+	 if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)//如果寄存器中有数据
+
+  {
+    /* Read one byte from the receive data register */
+		USART_ClearITPendingBit(USART1, USART_IT_RXNE); 
+    USART1_Buffer[USART1_Buffer_Num++] = USART_ReceiveData(USART1);
+		//Usart_SendHalfWord(USART1, USART1_Buffer[USART1_Buffer_Num-1]);
+		if(USART1_Buffer[USART1_Buffer_Num-2] == 0X7F && USART1_Buffer[USART1_Buffer_Num-1] == 0XF7)
+		{
+			Usart_SendByte(USART1, 0x7f);
+		  Usart_SendHalfWord(USART1, TIM_GetCounter(TIM4));
+		  Usart_SendHalfWord(USART1, TIM_GetCounter(TIM3));
+		  Usart_SendByte(USART1, 0xf7);
+			USART1_Buffer_Num = 0;
+		}
+  }
 }
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */

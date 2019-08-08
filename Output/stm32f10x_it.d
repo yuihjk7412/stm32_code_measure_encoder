@@ -30,3 +30,5 @@
 ..\..\output\stm32f10x_it.o: ..\..\Libraries\FWlib\inc\stm32f10x_wwdg.h
 ..\..\output\stm32f10x_it.o: ..\..\Libraries\FWlib\inc\misc.h
 ..\..\output\stm32f10x_it.o: ..\..\User\GeneralTim\bsp_GeneralTim.h
+..\..\output\stm32f10x_it.o: ..\..\User\usart\bsp_usart.h
+..\..\output\stm32f10x_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

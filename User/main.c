@@ -5,6 +5,7 @@
 #include "bsp_GeneralTim.h"  
 
 
+
 void delay_us(u16 time)
 {    
    u16 i=0;  
@@ -49,11 +50,15 @@ int main(void)
 	
 	while ( 1 )
 	{
-		pos1 = TIM_GetCounter(TIM4);
-		pos2 = TIM_GetCounter(TIM3);
-		printf("\r\nposition1:%d\r\n",pos1/4);
-		printf("\r\nposition2:%d\r\n",pos2/4);
-		delay_ms(1000);
+		//pos1 = TIM_GetCounter(TIM4);
+		//pos2 = TIM_GetCounter(TIM3);
+		/*Usart_SendByte(USART1, 0x7f);
+		Usart_SendHalfWord(USART1, TIM_GetCounter(TIM4));
+		Usart_SendHalfWord(USART1, TIM_GetCounter(TIM3));
+		Usart_SendByte(USART1, 0xf7);*/
+		//printf("\r\nposition1:%d\r\n",pos1/4);
+		//printf("\r\nposition2:%d\r\n",pos2/4);
+		delay_ms(20);
 		
 		/*
 		if(TIM_ICUserValueStructure.Capture_FinishFlag == 1)
